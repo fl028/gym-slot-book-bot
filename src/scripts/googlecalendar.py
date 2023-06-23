@@ -16,6 +16,7 @@ class Gmail:
         self.Logger = Logger
         self.SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
         self.events_list = []
+        self.Logger.info("Gmail calendar instantiated!")
 
     def GetEvents(self):
         creds = None

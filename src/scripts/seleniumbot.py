@@ -42,6 +42,7 @@ class Bot:
 
         service = Service(executable_path=self.constants_data_dict["chromedriver_exe_path"])
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
+        #self.driver = webdriver.Chrome(service=service)
         self.Logger.info("Driver is ready!")
 
     def book(self, booking_date):
@@ -114,7 +115,7 @@ class Bot:
                 if self.slot_table_dict[str(row_index)]["Action"] == "PLATZ RESERVIEREN":
                     self.bookable_date = self._convert_to_date_time(self.slot_table_dict[str(row_index)]["Date"])
 
-        self.Logger.info("Bookable date: " + str(self.bookable_date))
+        self.Logger.info("Bookable date: " + str(self.bookable_date.date()))
     
     def _perform_booking(self,booking_date):
 
@@ -122,7 +123,7 @@ class Bot:
             self.Logger.warning("Booking not possible!")
             return
         
-        if booking_date.date() == self.bookable_date.date():
+        if booking_date == self.bookable_date.date():
             self.Logger.info("Booking is possible!")
             self.book_button.click()
             self.Logger.info("Booking is done!")
